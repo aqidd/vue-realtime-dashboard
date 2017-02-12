@@ -1,17 +1,24 @@
+<!-- main app component -->
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <md-whiteframe md-theme="blue" md-tag="md-toolbar" md-elevation="1">
+      <md-toolbar>
+        <span class="md-title">Vue Real-Time Dashboard</span>
+      </md-toolbar>
+    </md-whiteframe>
+    <google-map></google-map>
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello'
+import GoogleMap from './components/GoogleMap'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Hello,
+    GoogleMap
   }
 }
 </script>
@@ -23,6 +30,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.md-title {
+  height: 500px
 }
 </style>
