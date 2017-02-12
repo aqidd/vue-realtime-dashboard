@@ -23,8 +23,8 @@
             </md-card-content>
 
             <md-card-actions>
-              <md-button class="md-raised md-primary">Add Random Marker</md-button>
-              <md-button class="md-raised md-warn">Delete Random Marker</md-button>
+              <md-button class="md-raised md-primary" @click.native="addRandomMarker">Add Random Marker</md-button>
+              <md-button class="md-raised md-warn" @click.native="deleteMarker">Delete Marker</md-button>
             </md-card-actions>
           </md-card>
         </div>
@@ -40,6 +40,28 @@ import GoogleMap from './components/GoogleMap'
 
 export default {
   name: 'app',
+  firebase () {
+    return {
+      markers: this.$db.ref('markers')
+    }
+  },
+  methods: {
+    addRandomMarker () {
+      this.$db.ref('markers').push({
+        position: {
+          lat: -1.243668 + Math.random(),
+          lng: 116.85190 + Math.random()
+        }
+      })
+    },
+    deleteMarker () {
+      if (this.markers.length === 0) {
+        alert('tidak ada marker')
+        return
+      }
+      this.$db.ref('markers').child(this.markers[0]['.key']).remove()
+    }
+  },
   components: {
     GoogleMap
   }

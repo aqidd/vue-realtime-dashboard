@@ -2,7 +2,7 @@
 	<md-whiteframe md-elevation="3">
 		<gmap-map
 			:center="center"
-			:zoom="7"
+			:zoom="9"
 		>
 			<gmap-marker
 				v-for="marker in markers"
@@ -21,17 +21,14 @@
 	  data () {
 	    return {
 	      center: {
-	        lat: 10.0,
-	        lng: 10.0
-	      },
-	      markers: [
-	        {
-	          position: {lat: 10.0, lng: 10.0}
-	        },
-	        {
-	          position: {lat: 20.0, lng: 20.0}
-	        }
-	      ]
+	        lat: -1.243668,
+	        lng: 116.85190
+	      }
+	    }
+	  },
+	  firebase () {
+	    return {
+	      markers: this.$db.ref('markers')
 	    }
 	  },
 	  methods: {
