@@ -34,7 +34,9 @@
             </md-card>
           </div>
           <div md-align="center">
-            <pie-chart :ratings="totalRatings" :labels="ratingLabels"></pie-chart>
+            <pie-chart :chartData="pieData" :options="{}"></pie-chart>
+            <br>
+            <bar-chart :chartData="barData" :options="{}"></bar-chart>
           </div>
         </md-layout>
       </md-layout>
@@ -46,6 +48,7 @@
 import GoogleMap from './components/GoogleMap'
 import MarkerTable from './components/MarkerTable'
 import PieChart from './components/PieChart'
+import BarChart from './components/BarChart'
 
 export default {
   name: 'app',
@@ -91,14 +94,35 @@ export default {
     }
   },
   computed: {
-    totalRatings () {
-      return this.ratingFilter.map((rating) => this.countTotalRating(rating))
+    pieData () {
+      return {
+        labels: this.ratingLabels,
+        datasets: [
+          {
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#55FF56', '#33DD56'],
+            data: this.ratingFilter.map((rating) => this.countTotalRating(rating))
+          }
+        ]
+      }
+    },
+    barData () {
+      return {
+        labels: this.ratingLabels,
+        datasets: [
+          {
+            label: 'Jumlah Rating',
+            backgroundColor: '#36A2EB',
+            data: this.ratingFilter.map((rating) => this.countTotalRating(rating))
+          }
+        ]
+      }
     }
   },
   components: {
     GoogleMap,
     MarkerTable,
-    PieChart
+    PieChart,
+    BarChart
   }
 }
 </script>

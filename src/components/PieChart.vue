@@ -1,24 +1,11 @@
 <script>
-import { Pie } from 'vue-chartjs'
+import { Pie, mixins } from 'vue-chartjs'
 
 export default Pie.extend({
-  props: ['labels', 'ratings'],
+  mixins: [mixins.reactiveProp],
+  props: ['chartData', 'options'],
   mounted () {
-    this.renderChart({
-      labels: this.labels,
-      datasets: [
-        {
-          data: this.ratings,
-          backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#55FF56',
-            '#33DD56'
-          ]
-        }
-      ]
-    })
+    this.renderChart(this.chartData, this.options)
   }
 })
 </script>
