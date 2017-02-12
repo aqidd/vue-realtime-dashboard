@@ -6,40 +6,55 @@
     </md-toolbar>
 
     <div class="main-content">
-      <div class="map">
-        <google-map></google-map>
-        <div class="map-control">
-          <md-toolbar>
-            <h1 class="md-title">Map Controls</h1>
-          </md-toolbar>
+      <md-layout md-gutter class="map">
+        <md-layout md-flex="70">
+          <google-map></google-map>  
+          <marker-table></marker-table>
+        </md-layout>
 
-          <md-card md-with-hover>
-            <md-card-header>
-              <div class="md-title">Demo Card</div>
-            </md-card-header>
+        <md-layout md-flex="20" md-flex-offset="5">
+          <div class="map-control">
+            <md-toolbar>
+              <h1 class="md-title">Map Controls</h1>
+            </md-toolbar>
 
-            <md-card-content>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-            </md-card-content>
+            <md-card md-with-hover>
+              <md-card-header>
+                <div class="md-title">Demo Card</div>
+              </md-card-header>
 
-            <md-card-actions>
-              <md-button class="md-raised md-primary" @click.native="addRandomMarker">Add Random Marker</md-button>
-              <md-button class="md-raised md-warn" @click.native="deleteMarker">Delete Marker</md-button>
-            </md-card-actions>
-          </md-card>
-        </div>
-      </div>
-      <div class="region">
-      </div>
+              <md-card-content>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+              </md-card-content>
+
+              <md-card-actions>
+                <md-button class="md-raised md-primary" @click.native="addRandomMarker">Add Random Marker</md-button>
+                <md-button class="md-raised md-warn" @click.native="deleteMarker">Delete Marker</md-button>
+              </md-card-actions>
+            </md-card>
+          </div>
+          <div md-align="center">
+            <pie-chart :ratings="totalRatings" :labels="ratingLabels"></pie-chart>
+          </div>
+        </md-layout>
+      </md-layout>
     </div>
   </div>
 </template>
 
 <script>
 import GoogleMap from './components/GoogleMap'
+import MarkerTable from './components/MarkerTable'
+import PieChart from './components/PieChart'
 
 export default {
   name: 'app',
+  data () {
+    return {
+      ratingLabels: ['ancur', 'jelek', 'pas', 'oke', 'mantab'],
+      ratingFilter: [0, 1, 2, 3, 4]
+    }
+  },
   firebase () {
     return {
       markers: this.$db.ref('markers')
@@ -51,8 +66,14 @@ export default {
         position: {
           lat: -1.243668 + Math.random(),
           lng: 116.85190 + Math.random()
+        },
+        meta: {
+          name: 'marker ' + (this.markers.length + 1),
+          rating: parseInt(Math.random() * 100) % 5,
+          created_date: `${new Date()}`
         }
       })
+      this.ratingFilter.reverse().reverse()
     },
     deleteMarker () {
       if (this.markers.length === 0) {
@@ -60,10 +81,24 @@ export default {
         return
       }
       this.$db.ref('markers').child(this.markers[0]['.key']).remove()
+    },
+    countTotalRating (rate) {
+      if (this.markers === undefined) {
+        return 0
+      }
+
+      return this.markers.filter((marker) => marker.meta.rating === rate).length
+    }
+  },
+  computed: {
+    totalRatings () {
+      return this.ratingFilter.map((rating) => this.countTotalRating(rating))
     }
   },
   components: {
-    GoogleMap
+    GoogleMap,
+    MarkerTable,
+    PieChart
   }
 }
 </script>
@@ -71,13 +106,5 @@ export default {
 <style>
 .main-content {
   padding: 16px;
-}
-.map {
-  width: 100%;
-}
-.map-control {
-  padding-left: 16px;
-  width: 30%;
-  float: right;
 }
 </style>
