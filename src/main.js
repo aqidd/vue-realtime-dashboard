@@ -13,6 +13,9 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+// css require
+require('vue-material/dist/vue-material.css')
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

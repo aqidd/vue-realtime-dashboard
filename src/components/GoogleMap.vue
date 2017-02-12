@@ -1,17 +1,19 @@
 <template>
-	<gmap-map
-		:center="center"
-		:zoom="7"
-	>
-		<gmap-marker
-			v-for="marker in markers"
-			:position.sync="marker.position"
-			:clickable="true"
-			:draggable="false"
-			@click="onMarkerClick(marker)"
+	<md-whiteframe md-elevation="3">
+		<gmap-map
+			:center="center"
+			:zoom="7"
 		>
-		</gmap-marker>
-	</gmap-map>
+			<gmap-marker
+				v-for="marker in markers"
+				:position.sync="marker.position"
+				:clickable="true"
+				:draggable="false"
+				@click="onMarkerClick(marker)"
+			>
+			</gmap-marker>
+		</gmap-map>
+	</md-whiteframe>
 </template>
 
 <script>
@@ -41,8 +43,9 @@
 </script>
 
 <style>
-.vue-map-cont {
-  width:100%;
+.vue-map-container {
+  width:70%;
+  float: left;
   height: 600px;
   display: block;
 }
