@@ -1,7 +1,7 @@
 {
   "name": "vue-realtime-dashboard",
   "version": "1.0.0",
-  "description": "a simple vuejs realtime dashboard with firebase, google maps & d3js",
+  "description": "a simple vuejs realtime dashboard with firebase, google maps & chartjs",
   "author": "Aqid <aqid@flipbox.co.id>",
   "private": true,
   "scripts": {
