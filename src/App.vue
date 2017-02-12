@@ -12,19 +12,19 @@
           <marker-table></marker-table>
         </md-layout>
 
-        <md-layout md-flex="20" md-flex-offset="5">
-          <div class="map-control">
+        <md-layout md-align="center" md-flex="20" md-flex-offset="5">
+          <div class="map-data">
             <md-toolbar>
               <h1 class="md-title">Map Controls</h1>
             </md-toolbar>
 
             <md-card md-with-hover>
               <md-card-header>
-                <div class="md-title">Demo Card</div>
+                <div class="md-title">Manage Markers</div>
               </md-card-header>
 
               <md-card-content>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+                Click <strong>Add Random Marker</strong> to add random marker around Balikpapan with random values. Click <strong>Delete Marker</strong> to delete random marker from map.
               </md-card-content>
 
               <md-card-actions>
@@ -32,12 +32,16 @@
                 <md-button class="md-raised md-warn" @click.native="deleteMarker">Delete Marker</md-button>
               </md-card-actions>
             </md-card>
-          </div>
-          <div md-align="center">
-            <pie-chart :chartData="pieData" :options="{}"></pie-chart>
             <br>
-            <bar-chart :chartData="barData" :options="{}"></bar-chart>
+            <md-card md-with-hover md-inset="true">
+              <pie-chart class="card-content" :chartData="pieData" :options="{}"></pie-chart>
+            </md-card>
+            <br>
+            <md-card md-with-hover md-inset="true">
+              <bar-chart class="card-content" :chartData="barData" :options="{}"></bar-chart>
+            </md-card>
           </div>
+
         </md-layout>
       </md-layout>
     </div>
@@ -128,7 +132,10 @@ export default {
 </script>
 
 <style>
-.main-content {
+.main-content, .card-content {
   padding: 16px;
+}
+.map-control {
+  margin-bottom: 16px;
 }
 </style>
