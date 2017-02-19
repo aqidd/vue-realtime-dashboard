@@ -1,6 +1,8 @@
 # vue-realtime-dashboard
 
-> a simple vuejs realtime dashboard with firebase, google maps & chartjs
+> a simple vuejs realtime dashboard with vue material design, firebase, google maps & chartjs
+
+see the [demo here](https://aqidd.github.io/realtime-dashboard/)
 
 ## Build Setup
 
