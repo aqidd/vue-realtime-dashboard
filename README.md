@@ -4,6 +4,8 @@
 
 see the [demo here](https://aqidd.github.io/realtime-dashboard/)
 
+![screenshot](https://puu.sh/yApNn/c13923159d.png)
+
 ## Build Setup
 
 ``` bash
